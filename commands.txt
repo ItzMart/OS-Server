@@ -1,0 +1,18 @@
+sudo apt update && sudo apt install tigervnc-standalone-server qemu-system-x86 firefox openbox neofetch kitty
+git clone https://github.com/novnc/noVNC.git
+cd noVNC/
+sudo vncserver -SecurityType none -xstartup "openbox" -rfbport 5080
+sudo ./utils/novnc_proxy --vnc 127.0.0.1:5080 --listen localhost:8080
+
+killall Firefox
+mkdir wind10
+cd win10
+qemu-img create hdd.img 12G
+cd
+ls
+cd Downloads
+mv Win10_22H2_English_x64v1.iso ~/win10/Windows.iso
+cd
+cd win10
+ls
+qemu-system-x86_64 --enable-kvm -m 3G -smp 2 -pflash /usr/share/OVMF/OVMF_CODE.fd --hdd hdd.img --cdrom Windows.iso
